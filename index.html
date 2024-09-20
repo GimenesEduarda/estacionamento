@@ -1,0 +1,164 @@
+<!DOCTYPE html> 
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estacionamento</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .container {
+      background-color: #2c2c2c;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      width: 90%;
+      max-width: 450px;
+    }
+
+    h2 {
+      color: #4CAF50;
+      margin-bottom: 20px;
+      font-size: 1.8em;
+      text-transform: uppercase;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #4CAF50;
+      border-radius: 5px;
+      background-color: #333;
+      color: #fff;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      border-color: #76c7c0;
+      outline: none;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1em;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .resumo {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #4CAF50;
+      border-radius: 5px;
+      background-color: #3d3d3d;
+      text-align: left;
+    }
+
+    .resumo p {
+      margin: 5px 0;
+      color: #ddd;
+    }
+
+    img {
+    max-width: 100%;
+    height: auto; /* Garante que a altura seja proporcional à largura */
+    border-radius: 100px;
+    margin-bottom: 80px;
+    object-fit: cover; /* Preenche o espaço do contêiner mantendo a proporção */
+  }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="img/Ok.png" alt="carro">
+    <h2>Dados do Cliente</h2>
+    <input type="text" id="nome" placeholder="Digite o nome do cliente" required>
+    <input type="text" id="placa" placeholder="Placa" required>
+    <input type="text" id="carro" placeholder="Carro" required>
+    <input type="number" id="dias" placeholder="Quantos Dias" min="1" required>
+    <input type="number" id="valorDiaria" placeholder="Valor da diária" min="0" required>
+
+    <div class="resumo">
+      <h2>Resumo</h2>
+      <p id="nomeCliente"></p>
+      <p id="placaCliente"></p>
+      <p id="carroCliente"></p>
+      <p id="diasCliente"></p>
+      <p id="valorTotalSemDesconto"></p>
+      <p id="valorTotalComDesconto"></p>
+    </div>
+
+    <button onclick="calcular()">Calcular</button>
+    <button onclick="limpar()">Limpar</button>
+    <button onclick="sair()">Sair</button>
+  </div>
+
+  <script>
+    function calcular() {
+      const nome = document.getElementById('nome').value;
+      const placa = document.getElementById('placa').value;
+      const carro = document.getElementById('carro').value;
+      const dias = parseInt(document.getElementById('dias').value);
+      const valorDiaria = parseFloat(document.getElementById('valorDiaria').value);
+
+      if (isNaN(dias) || isNaN(valorDiaria) || dias < 1 || valorDiaria < 0) {
+        alert("Por favor, insira valores válidos.");
+        return;
+      }
+
+      const valorTotalSemDesconto = dias * valorDiaria;
+      const valorTotalComDesconto = valorTotalSemDesconto > 150 ? valorTotalSemDesconto * 0.9 : valorTotalSemDesconto;
+
+      document.getElementById('nomeCliente').textContent = `Nome: ${nome}`;
+      document.getElementById('placaCliente').textContent = `Placa: ${placa}`;
+      document.getElementById('carroCliente').textContent = `Carro: ${carro}`;
+      document.getElementById('diasCliente').textContent = `Vai ficar: ${dias} dias`;
+      document.getElementById('valorTotalSemDesconto').textContent = `Valor sem desconto: R$ ${valorTotalSemDesconto.toFixed(2)}`;
+      document.getElementById('valorTotalComDesconto').textContent = `Valor total com desconto: R$ ${valorTotalComDesconto.toFixed(2)}`;
+    }
+
+    function limpar() {
+      document.getElementById('nome').value = '';
+      document.getElementById('placa').value = '';
+      document.getElementById('carro').value = '';
+      document.getElementById('dias').value = '';
+      document.getElementById('valorDiaria').value = '';
+      document.getElementById('nomeCliente').textContent = '';
+      document.getElementById('placaCliente').textContent = '';
+      document.getElementById('carroCliente').textContent = '';
+      document.getElementById('diasCliente').textContent = '';
+      document.getElementById('valorTotalSemDesconto').textContent = '';
+      document.getElementById('valorTotalComDesconto').textContent = '';
+    }
+
+    function sair() {
+      alert("Obrigado, volte sempre :)");
+    }
+  </script>
+</body>
+</html>
